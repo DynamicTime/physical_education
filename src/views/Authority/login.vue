@@ -61,7 +61,7 @@
           this.prompt(1)
           this.saveData()
           this.$router.push({
-            name: 'home',
+            name: 'library',
             params: {
               // userId: "herry"
             }
