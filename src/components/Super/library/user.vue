@@ -10,7 +10,7 @@
   <div>
     <div class="body">
       <div class="picture">
-        <!-- <img src="user.png" alt /> -->
+        <img :src="picInfo" alt />
       </div>
       <div class="name">{{name}}</div>
       <div class="info">
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       name:"herry",
-      // pic: require("public/super/user.png")
+      picInfo:require("../../../assets/super/user.png")
     };
   },
   mounted() {},

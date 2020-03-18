@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       // show: false,
-      // value: ""
+      value: "",
       infoTitle: "体育项目名（单位）",
       infoInput: "300分及格",
       maxlength:"4"
