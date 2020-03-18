@@ -9,18 +9,19 @@
 <template>
   <div>
     <div class="title commonColor">
-      <div class="button"  @click="intoModel()">模板管理</div>
+      <div class="button" @click="intoModel()">模板管理</div>
       <div class="titleName">组件管理</div>
     </div>
 
-    <div class="bodyDiv">
-      <van-collapse class="publicClassification" v-model="activeNames1">
-        <van-collapse-item class="collapseOne" :title="title1" name="1">
-          <user></user>
-        </van-collapse-item>
-      </van-collapse>
+    <!-- <vuedraggable class="wrapper" v-model="list">
+    <transition-group>
+      <div v-for="item in list" :key="item" class="item">
+        <p>{{item}}</p>
+      </div>
+    </transition-group>
+    </vuedraggable>-->
 
-      <van-collapse class="publicClassification" v-model="activeNames2">
+    <!-- <van-collapse class="publicClassification" v-model="activeNames2">
         <van-collapse-item class="collapseOne" :title="title2" name="1">
           <infoShow></infoShow>
         </van-collapse-item>
@@ -30,8 +31,20 @@
         <van-collapse-item class="collapseOne" :title="title3" name="1">
           <numberIndex></numberIndex>
         </van-collapse-item>
-      </van-collapse>
-    </div>
+    </van-collapse>-->
+    <vuedraggable v-model="list" :options="options">
+      <div class="bodyDiv" v-for="(item ,index) in list ">
+        <van-collapse class="publicClassification" v-model="list[index].activeNames" accordion>
+          <van-collapse-item v-if="list" class="collapseOne" :title="list[index].title" name="1">
+            <user v-if="list[index].num == '0'"></user>
+
+            <infoShow v-if="list[index].num == '1'"></infoShow>
+
+            <numberIndex v-if="list[index].num =='2'"></numberIndex>
+          </van-collapse-item>
+        </van-collapse>
+      </div>
+    </vuedraggable>
   </div>
 </template>
 <style scoped>
@@ -74,7 +87,7 @@
   font-size: 20px;
 }
 
-.publicClassification{
+.publicClassification {
   margin-top: 20px;
 }
 </style>
@@ -85,27 +98,36 @@ import user from "../../../components/Super/library/user";
 import infoShow from "../../../components/Super/library/infoShow";
 import numberIndex from "../../../components/Super/library/numberIndex";
 
-numberIndex
+import vuedraggable from "vuedraggable";
+
 export default {
   components: {
     user,
     infoShow,
-    numberIndex
+    numberIndex,
+    vuedraggable
   },
   data() {
     return {
-      // show: false,
-      // value: ""
-      activeNames1: ["1"],
-      activeNames2: ["1"],
-      activeNames3: ["1"],
+      
 
-      title1: "用户信息组件",
-      title2: "信息显示组件",
-
-      title3: "数组输入组件"
+      list: [
+        { activeNames: "1", title: "用户信息组件", num: "0" },
+        { activeNames: "1", title: "信息显示组件", num: "1" },
+        { activeNames: "1", title: "数组输入组件", num: "2" }
+      ],
+      options: {
+        delayOnTouchOnly: true, //开启触摸延时
+        direction: "vertical", //拖动方向
+        delay: 500, //延时时长
+        touchStartThreshold: 3, //防止某些手机过于敏感(3~5 效果最好)
+        chosenClass: "chosen" //选中之后拖拽项添加的class名(用于选中时候添加样式)
+      }
 
     };
+  },
+  updated() {
+    console.log(this.list);
   },
   mounted() {},
   methods: {
@@ -114,10 +136,15 @@ export default {
     //   if (this.searchMessage === "") {
     //   }
     // }
-    intoModel(){
-
-      
+    intoModel() {
+      this.$router.push({name:"management"});
     }
+    // intoHtml(){
+    //   var html = '';
+    //   for(var i=1;i<=3;i++){
+    //     html+="<div>第"
+    //   }
+    // }
   }
 };
 </script>

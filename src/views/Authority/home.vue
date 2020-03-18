@@ -56,7 +56,7 @@ export default {
       this.$router.push({
         name: this.pageUrl[index],
         params: {
-          userId: "herry"
+          userId: "herry"  // 传递参数
         }
       });
     },

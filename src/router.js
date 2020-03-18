@@ -90,6 +90,10 @@ const router = new Router({
         // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
       }
     },
+
+
+
+    // 一下部分为新项目：
     {
       path: '/library',
       name: 'library',
@@ -100,7 +104,30 @@ const router = new Router({
         title: 'library'
         // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
       }
-    }
+    },
+    {
+      path: '/management',
+      name: 'management',
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/Super/template/management.vue'),
+      meta: {
+        // keepAlive: true,
+        title: 'management'
+        // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
+      }
+    },
+     {
+      path: '/setting',
+      name: 'setting',
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/Super/template/setting.vue'),
+      meta: {
+        // keepAlive: true,
+        title: 'setting'
+        // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
+      }
+    },
+    
     
   ]
 })
