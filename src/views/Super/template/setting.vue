@@ -15,18 +15,29 @@
 
     <div class="body">
       <div class="nameTitle">分组设置</div>
+
       <div class="nameNum">
-        <div class="project" v-for="(item,index) in projectName">
-          <div class="projectName">{{projectName[index]}}</div>
-          <!-- <div class="projectBut"> -->
-          <img class="projectBut" :src="less" alt />
-          <!-- </div> -->
-        </div>
+        <vuedraggable v-model="projectName" :options="options">
+          <div class="project" v-for="(item,index) in projectName">
+            <div @click="popupInput(index)" class="projectName">{{projectName[index]}}</div>
+            <!-- <div class="projectBut"> -->
+            <img @click="lessNum(index)" class="projectBut" :src="less" alt />
+            <!-- </div> -->
+          </div>
+        </vuedraggable>
       </div>
+
       <div>
-        <img class="addBut" :src="plus" alt />
+        <img @click="plusNum()" class="addBut" :src="plus" alt />
       </div>
     </div>
+    <popup
+      :boolean="boolean"
+      :projectInfo="projectInfo"
+      :projectIndex="projectIndex"
+      @listenToChildSetting="receivePopup"
+      @listenToSettingInfo="receivePopupInfo"
+    ></popup>
   </div>
 </template>
 <style scoped>
@@ -59,7 +70,7 @@
   margin: 20px auto 20px;
   width: 335px;
   height: 500px;
-  border: 1px solid red;
+  border: 1px solid #e0e9ea;
 }
 
 .nameTitle {
@@ -102,27 +113,73 @@
 }
 </style>
 <script>
+import popup from "../../../components/Super/popup";
+import vuedraggable from "vuedraggable";
+
 export default {
+  components: {
+    popup,
+    vuedraggable
+  },
   data() {
     return {
       //   show: false,
       //   value: ""
 
       less: require("../../../assets/super/Less.png"),
+      plus: require("../../../assets/super/plus.png"),
       projectName: ["公共项目", "男生项目", "女生项目"],
-      plus: require("../../../assets/super/plus.png")
+
+      boolean: "", // 弹出框输入是否可见
+      projectInfo: "", // 传递给弹出框名字信息
+      projectIndex: "", // 传递给弹出框的名字在projectName中位置
+
+      options: {
+        delayOnTouchOnly: true, //开启触摸延时
+        direction: "vertical", //拖动方向
+        delay: 500, //延时时长
+        touchStartThreshold: 3, //防止某些手机过于敏感(3~5 效果最好)
+        chosenClass: "chosen" //选中之后拖拽项添加的class名(用于选中时候添加样式)
+      }
     };
   },
+
+  watch: {},
+
+  updated() {},
   mounted() {},
   methods: {
-    // newitems() {
-    //   var searchArr = [];
-    //   if (this.searchMessage === "") {
-    //   }
-    // }
-
+    // 点击抬头左侧按钮
     intoModel() {
       this.$router.push({ name: "management" });
+    },
+
+    // 删除内容
+    lessNum(i) {
+      this.projectName.splice(i, 1);
+    },
+
+    // 增加内容
+    plusNum() {
+      this.projectName.push("请输入信息");
+    },
+
+    // 点击每个名字进弹框修改
+    popupInput(i) {
+      // alert("我是白爱民"+i)
+      this.boolean = true;
+      this.projectInfo = this.projectName[i];
+      this.projectIndex = i;
+    },
+
+    //接收弹出框页面是否可见的boolean值
+    receivePopup(newVal) {
+      this.boolean = newVal;
+    },
+
+    // 接收输入弹框中修改的内容
+    receivePopupInfo(newInfo, newI) {
+      this.projectName[newI] = newInfo;
     }
   }
 };

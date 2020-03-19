@@ -9,7 +9,9 @@
 <template>
   <div>
     <div class="title commonColor">
-      <img @click="intoSetting" class="iocName" :src="iocName"  alt />
+      <!-- <div class="iocNameDiv"> -->
+        <img @click="intoSetting" class="iocName" :src="iocName" alt />
+      <!-- </div> -->
 
       <div class="button" @click="intoModel()">组件管理</div>
       <div class="titleName">模板管理</div>
@@ -51,6 +53,7 @@
   height: 50px;
   /* left: 350px; */
 }
+
 </style>
 <script>
 export default {
@@ -72,9 +75,8 @@ export default {
     intoModel() {
       this.$router.push({ name: "library" });
     },
-    intoSetting(){
+    intoSetting() {
       this.$router.push({ name: "setting" });
-
     }
   }
 };
