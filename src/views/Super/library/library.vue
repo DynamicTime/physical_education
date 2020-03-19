@@ -13,25 +13,6 @@
       <div class="titleName">组件管理</div>
     </div>
 
-    <!-- <vuedraggable class="wrapper" v-model="list">
-    <transition-group>
-      <div v-for="item in list" :key="item" class="item">
-        <p>{{item}}</p>
-      </div>
-    </transition-group>
-    </vuedraggable>-->
-
-    <!-- <van-collapse class="publicClassification" v-model="activeNames2">
-        <van-collapse-item class="collapseOne" :title="title2" name="1">
-          <infoShow></infoShow>
-        </van-collapse-item>
-      </van-collapse>
-
-      <van-collapse class="publicClassification" v-model="activeNames3">
-        <van-collapse-item class="collapseOne" :title="title3" name="1">
-          <numberIndex></numberIndex>
-        </van-collapse-item>
-    </van-collapse>-->
     <vuedraggable v-model="list" :options="options">
       <div class="bodyDiv" v-for="(item ,index) in list ">
         <van-collapse class="publicClassification" v-model="list[index].activeNames" accordion>
@@ -131,20 +112,11 @@ export default {
   },
   mounted() {},
   methods: {
-    // newitems() {
-    //   var searchArr = [];
-    //   if (this.searchMessage === "") {
-    //   }
-    // }
+
     intoModel() {
       this.$router.push({name:"management"});
     }
-    // intoHtml(){
-    //   var html = '';
-    //   for(var i=1;i<=3;i++){
-    //     html+="<div>第"
-    //   }
-    // }
+
   }
 };
 </script>
