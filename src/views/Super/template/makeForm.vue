@@ -7,15 +7,21 @@
 *@LastEditTime:2019年12月11日20:16:31
 *@说明：-->
 <template>
-  <div >
+  <div>
     <div class="title commonColor">
       <div class="buttonLeft" @click="returnPage()">返回</div>
       <div class="buttonRight" @click="nextStep()">下一步</div>
       <div class="titleName">编辑模板</div>
     </div>
-    <div class="body" v-touch:right="eventFun">
+    <div class="body" v-touch:right="eventFun"></div>
 
-    </div>
+    <!-- 遮罩层 -->
+    <van-popup v-model="showPopup" position="left" :style="{ height: '100%' }">
+      <!-- 左侧弹出框 -->
+      <div id="sidebar" >
+        <sidebar></sidebar>
+      </div>
+    </van-popup>
   </div>
 </template>
 <style scoped>
@@ -52,19 +58,24 @@
   width: 100px;
 }
 
-.body{
-  height: 300px;
-  border: 2px solid red;
+.body {
+  height: 550px;
+  border: 2px solid black;
   margin: 10px;
   margin-top: 30px;
 }
 </style>
 <script>
+import sidebar from "../../../components/Super/template/sidebar";
 export default {
+  components: {
+    sidebar,
+  },
   data() {
     return {
-      show: false,
-      value: ""
+      // show: false,
+      // value: "",
+      showPopup: false  // 遮罩层弹出
     };
   },
   mounted() {},
@@ -78,11 +89,16 @@ export default {
     //下一步
     nextStep() {
       // console.log("2");
-      this.$router.push({name:"makeForm"})
+      this.$router.push({ name: "makeForm" });
     },
 
-    eventFun(){
-      console.log("右划")
+    eventFun() {
+      console.log("右划");
+      this.showPopup = true;
+      // this.sidebarShow=true
+
+      // var t = document.getElementById("sidebar");
+      // t.style.cssText = "display:inline";
     }
   }
 };

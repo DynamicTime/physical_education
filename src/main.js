@@ -17,6 +17,9 @@ import './css/index.css'
 
 import { SwipeCell } from 'vant';
 import { Field } from "vant";
+import { Overlay } from 'vant';  // 遮罩层
+
+Vue.use(Overlay);
 import touch from 'vue-directive-touch';
 Vue.use(touch);
 Vue.use(Field);
