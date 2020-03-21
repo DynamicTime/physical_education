@@ -138,6 +138,17 @@ const router = new Router({
         // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
       }
     },
+    {
+      path: '/makeForm',
+      name: 'makeForm',
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/Super/template/makeForm.vue'),
+      meta: {
+        // keepAlive: true,
+        title: 'makeForm'
+        // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
+      }
+    },
     
   ]
 })

@@ -16,10 +16,33 @@
 
     <div class="body">
       <div class="managementName">
-
+        <van-cell-group>
+          <van-field v-model="managementNamevalue" placeholder="请输入模板名称" />
+        </van-cell-group>
       </div>
-      <div class="groupName"></div>
-      <div class="personnelName"></div>
+
+      <div class="managementName">
+        <van-dropdown-menu active-color="#fecd2a">
+          <van-dropdown-item v-model="groupValue" :options="groupOption" />
+        </van-dropdown-menu>
+      </div>
+
+      <div class="managementName">
+        <van-dropdown-menu active-color="#fecd2a">
+          <van-dropdown-item v-model="personValue" :options="personOption" />
+        </van-dropdown-menu>
+      </div>
+
+      <div class="remark">
+        <div class="remarkLabel">表单备注:</div>
+        <div
+          id="editer"
+          contenteditable="canEdit"
+          class="remarkTxt"
+          v-text="remarkTxt"
+          @blur="changeText()"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,32 +80,94 @@
   width: 100px;
 }
 
-.body{
-    
+.body {
+  border: 1px solid #e0e9ea;
+  margin: 10px;
+}
+
+.body .managementName {
+  border: 1px solid #e0e9ea;
+  overflow: hidden;
+  margin-top: 40px;
+  border-radius: 5px;
+}
+
+/* 下拉框名字居左 */
+>>> .van-dropdown-menu__item {
+  justify-content: left;
+}
+
+/* 下拉框内容对齐下拉框名字 */
+>>> .van-dropdown-item {
+  margin: 2px 12px 2px;
+}
+
+.body .remark {
+  border: 1px solid #e0e9ea;
+  overflow: hidden;
+  margin-top: 70px;
+}
+
+.remarkLabel {
+  float: left;
+}
+
+/* div文本框 */
+.remarkTxt {
+  border: 1px solid #e0e9ea;
+  height: 100px;
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 30px;
+  text-align: left;
 }
 </style>
 <script>
+import escape from "../../../api/escape"
+import { ContactCard } from 'vant';
 export default {
   data() {
     return {
-      show: false,
-      value: ""
+      // show: false,
+      managementNamevalue: "", // 模板名称输入框输入内容
+      groupValue: 0, // 分组选择后的分组value
+      personValue: 0, //人员选择后的value
+
+      // 所属分组
+      groupOption: [
+        { text: "公共项目", value: 0 },
+        { text: "男生项目", value: 1 },
+        { text: "女生项目", value: 2 }
+      ],
+      personOption: [{ text: "自己", value: 0 }], // 人员下拉框
+
+      remarkTxt: "" //备注输入内容
     };
   },
   mounted() {},
   methods: {
-    // newitems() {
-    //   var searchArr = [];
-    //   if (this.searchMessage === "") {
-    //   }
-    // }
 
+    // 返回
     returnPage() {
       window.history.go(-1); // windos的返回上一页
       // this.$router.go(-1) // vue的返回上一页
     },
+
+    //下一步
     nextStep() {
-      console.log("2");
+      // console.log("2");
+      this.$router.push({name:"makeForm"})
+    },
+
+    // 光标离开备注输入框执行存储
+    changeText() {
+      this.storageTxtNode();
+    },
+    // 将输入内容存储，需要转html格式，有些字符无法存数据库
+    storageTxtNode() {
+      var temp = document.getElementById("editer").innerText; // 获取文本框内容
+      temp = escape.htmlEncode(temp); // 将特殊字符转格式
+      console.log(temp)
     }
   }
 };

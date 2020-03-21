@@ -15,9 +15,11 @@ import 'vant/lib/index.css'
 // 引入自定义公共样式
 import './css/index.css'
 
-
 import { SwipeCell } from 'vant';
-
+import { Field } from "vant";
+import touch from 'vue-directive-touch';
+Vue.use(touch);
+Vue.use(Field);
 Vue.use(SwipeCell);
 Vue.use(Vant)
 Vue.config.productionTip = false
