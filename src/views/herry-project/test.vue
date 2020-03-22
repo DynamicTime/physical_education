@@ -8,9 +8,15 @@
 *@说明：-->
 <template>
   <div>
-    <van-field readonly clickable :value="value" @touchstart.native.stop="show = true" />
+    <!-- <img @click.prevent="test($event)" :src="infoShow" alt /> -->
 
-    <van-number-keyboard v-model="value" :show="show" :maxlength="6" @blur="show = false" />
+    <div
+      class="showimg"
+      @touchstart.prevent="touchin()"
+      @touchend.prevent="cleartime()"
+    >
+      <img :src="infoShow" alt="模型图片" />
+    </div>
   </div>
 </template>
 <style scoped>
@@ -20,16 +26,31 @@ export default {
   data() {
     return {
       show: false,
-      value: ""
+      value: "",
+      infoShow: require("../../assets/super/library/infoShow.jpg"),
+      Loop:""  // 定时器
+      // infoShow:require("../../assets/super/libraryinfoShow.jpg")
     };
   },
   mounted() {},
   methods: {
-    // newitems() {
-    //   var searchArr = [];
-    //   if (this.searchMessage === "") {
-    //   }
-    // }
+    touchin() {
+      clearInterval(this.Loop); //再次清空定时器，防止重复注册定时器
+      this.Loop = setTimeout(
+        function() {
+          // alert("是否确认删除");
+        }.bind(this),
+        1000
+      );
+    },
+    cleartime() {
+      // 这个方法主要是用来将每次手指移出之后将计时器清零
+      clearInterval(this.Loop);
+    },
+
+
+
+    
   }
 };
 </script>

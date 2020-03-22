@@ -113,7 +113,7 @@ export default {
   data() {
     return {
       infoName: [
-        { name: "名字", data: "白爱民" },
+        { name: "名字", data: "张三" },
         { name: "性别", data: "男" },
         { name: "学号", data: "122231231231" },
         { name: "学院", data: "建工学院" },
@@ -123,7 +123,7 @@ export default {
       ],
       picInfo: require("../../../assets/super/user.png"),
 
-      nameIsTrue: [true, true, true, true, true, true, true]
+      nameIsTrue: [true, true, true, true , true, false, true]
     };
   },
   mounted() {},

@@ -19,7 +19,7 @@
     <van-popup v-model="showPopup" position="left" :style="{ height: '100%' }">
       <!-- 左侧弹出框 -->
       <div id="sidebar" >
-        <sidebar></sidebar>
+        <sidebar @listenToMakeForm="listenToMakeForm"></sidebar>
       </div>
     </van-popup>
   </div>
@@ -60,7 +60,7 @@
 
 .body {
   height: 550px;
-  border: 2px solid black;
+  border: 2px solid #fecd2a;
   margin: 10px;
   margin-top: 30px;
 }
@@ -73,29 +73,32 @@ export default {
   },
   data() {
     return {
-      // show: false,
-      // value: "",
-      showPopup: true  // 遮罩层弹出
+      showPopup: false,  // 遮罩层弹出
     };
   },
   mounted() {},
   methods: {
-    // 返回
+    // 返回按钮
     returnPage() {
       window.history.go(-1); // windos的返回上一页
       // this.$router.go(-1) // vue的返回上一页
     },
 
-    //下一步
+    //下一步按钮
     nextStep() {
-      // console.log("2");
       this.$router.push({ name: "makeForm" });
     },
 
+   // 子组件sidebar返回事件，返回是哪个组件
+    listenToMakeForm(newVal1){
+      this.showPopup = false;
+      console.log(newVal1)
+    },
+
+
+    // 右划事件
     eventFun() {
-      console.log("右划");
-      this.showPopup = true;
-      // this.sidebarShow=true
+      this.showPopup = true; // 侧边栏左侧显示
 
       // var t = document.getElementById("sidebar");
       // t.style.cssText = "display:inline";
