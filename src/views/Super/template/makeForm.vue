@@ -75,7 +75,7 @@ export default {
     return {
       // show: false,
       // value: "",
-      showPopup: false  // 遮罩层弹出
+      showPopup: true  // 遮罩层弹出
     };
   },
   mounted() {},

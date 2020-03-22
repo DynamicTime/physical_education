@@ -13,21 +13,55 @@
         <img :src="picInfo" alt />
       </div>
 
-      <div class="rightData">
+      <!-- <div class="rightData">
         <div class="info" v-for="(item ,i) in infoName" v-if="nameIsTrue[i]">
           <div class="infoName">{{infoName[i].name}}</div>
           <div class="infoData">{{infoName[i].data}}</div>
         </div>
+      </div>-->
+
+      <div class="rightDiv">
+        <table
+          class="rightTable"
+          width="200"
+          border="1"
+          cellspacing="0"
+          cellpadding="0"
+          align="center"
+        >
+          <tr v-for="(item ,i) in infoName" v-if="nameIsTrue[i]">
+            <td width="300">{{infoName[i].name}}</td>
+            <td>{{infoName[i].data}}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
+
+.rightDiv {
+  height: 190px;
+  border: 1px solid white;
+
+  /* 使上下居中 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.rightTable {
+  text-align: center;
+  border: 1px solid white;
+  color: black;
+  font-size: 15px;
+}
 .body {
   width: 298px;
+  max-width: auto;
   height: 190px;
   border: 1px solid;
-  position: relative;
+  /* position: relative; */
 }
 .picture img {
   width: 100px;
@@ -35,12 +69,13 @@
   margin: 30px auto;
 }
 .body .picture {
+  float: left;
   width: 100px;
   height: 140px;
   top: 4px;
   bottom: 4px;
   border: 1px solid white;
-  position: absolute;
+  /* position: absolute; */
 }
 
 /* 左边大边框 */
@@ -53,17 +88,12 @@
   font-size: 15px;
   text-align: left;
   color: black;
-
-
-
-    /* line-height:190px; */
-  /* text-align: center; */
-
 }
+
 /* 每行数据边框 */
 .body .info {
   border: 1px solid white;
- /* display:inline-block; */
+  /* display:inline-block; */
 }
 
 /* 每行数据左边的属性边框 */
@@ -93,7 +123,7 @@ export default {
       ],
       picInfo: require("../../../assets/super/user.png"),
 
-      nameIsTrue: [false, true, true, true, true, true, true]
+      nameIsTrue: [true, true, true, true, true, true, true]
     };
   },
   mounted() {},

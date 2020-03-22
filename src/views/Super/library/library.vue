@@ -79,7 +79,7 @@ import user from "../../../components/Super/library/user";
 import infoShow from "../../../components/Super/library/infoShow";
 import numberIndex from "../../../components/Super/library/numberIndex";
 
-import vuedraggable from "vuedraggable";
+import vuedraggable from "vuedraggable";  //拖动
 
 export default {
   components: {
