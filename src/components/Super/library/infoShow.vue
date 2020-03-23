@@ -13,14 +13,6 @@
         <div class="showTitle1">{{infoTitle[index]}}</div>
         <div v-if="infoShow" class="showInfo1">{{infoShow[index]}}</div>
       </div>
-      <!-- <div class="info2">
-        <div class="showTitle2"></div>
-        <div class="showInfo2"></div>
-      </div>
-      <div class="info3">
-        <div class="showTitle3"></div>
-        <div class="showInfo3"></div>
-      </div>-->
     </div>
   </div>
 </template>

@@ -16,7 +16,7 @@
     <vuedraggable v-model="list" :options="options">
       <div class="bodyDiv" v-for="(item ,index) in list ">
         <van-collapse class="publicClassification" v-model="list[index].activeNames" accordion>
-          <van-collapse-item v-if="list" class="collapseOne" :title="list[index].title" name="1">
+          <van-collapse-item v-if="list" :title="list[index].title" name="1">
             <user v-if="list[index].num == '0'"></user>
 
             <infoShow v-if="list[index].num == '1'"></infoShow>

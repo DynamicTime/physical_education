@@ -49,12 +49,14 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  
 }
 .rightTable {
   text-align: center;
   border: 1px solid white;
   color: black;
   font-size: 15px;
+  
 }
 .body {
   width: 298px;
