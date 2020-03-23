@@ -108,7 +108,7 @@ export default {
     };
   },
   updated() {
-    // console.log(this.list);
+    console.log(this.list);
   },
   mounted() {},
   methods: {

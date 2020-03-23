@@ -10,22 +10,21 @@
   <div>
     <!-- <img @click.prevent="test($event)" :src="infoShow" alt /> -->
 
-    <div
-      class="showimg"
-      @touchstart.prevent="touchin()"
-      @touchend.prevent="cleartime()"
-    >
-      <img :src="infoShow" alt="模型图片" />
-    </div>
+   <van-action-sheet v-model="show" title="标题">
+  <div class="content">内容</div>
+</van-action-sheet>
   </div>
 </template>
 <style scoped>
+.content {
+  padding: 16px 16px 160px;
+}
 </style>
 <script>
 export default {
   data() {
     return {
-      show: false,
+      show: true,
       value: "",
       infoShow: require("../../assets/super/library/infoShow.jpg"),
       Loop:""  // 定时器

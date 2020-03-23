@@ -15,14 +15,28 @@
     </div>
 
     <div id="addTemplate" class="allTemplate" v-touch:right="eventFun">
-      <!-- <user class="publicAll user"></user> -->
+      <div v-for="(item ,i) in templateList ">
+        <div v-if="templateList[i] =='0'">
+          <img @click="spliceList(i)" :src="cross" alt />
+          <div @click="showUser()">
+            <user class="publicAll user"></user>
+          </div>
+        </div>
+        <div v-if="templateList[i] =='1'">
+          <img @click="spliceList(i)" :src="cross" alt />
 
-      <!-- <infoShow class="publicAll infoShow"></infoShow> -->
+          <infoShow class="publicAll infoShow"></infoShow>
+        </div>
 
-      <!-- <numberIndex class="publicAll numberIndex"></numberIndex> -->
+        <div v-if="templateList[i] =='2'">
+          <img @click="spliceList(i)" :src="cross" alt />
+
+          <numberIndex class="publicAll numberIndex"></numberIndex>
+        </div>
+      </div>
     </div>
-
-    <!-- 遮罩层 -->
+    <siteUser :siteUserShowP="siteUserShow" @listenUserToMakeForm="listenUser" ></siteUser>
+    <!-- 弹出层 -->
     <van-popup v-model="showPopup" position="left" :style="{ height: '100%' }">
       <!-- 左侧弹出框 -->
       <div id="sidebar">
@@ -32,6 +46,14 @@
   </div>
 </template>
 <style scoped>
+img {
+  width: 25px;
+  height: 25px;
+  /* float: right; */
+  /* margin: 20px; */
+  position: absolute;
+  left: 300px;
+}
 .commonColor {
   background: #fecd2a;
 }
@@ -99,37 +121,51 @@ import user from "../../../components/Super/library/user";
 import infoShow from "../../../components/Super/library/infoShow";
 import numberIndex from "../../../components/Super/library/numberIndex";
 
+import siteUser from "../../../components/Super/template/siteUser";
+// import siteUser from "../../../components/Super/template/siteUser";
+// import siteUser from "../../../components/Super/template/siteUser";
+
 export default {
   components: {
     sidebar,
     user,
     infoShow,
-    numberIndex
+    numberIndex,
+    siteUser
   },
   data() {
     return {
       showPopup: false, // 遮罩层弹出
+      templateList: [0],
 
-      list: [
-        { activeNames: "1", title: "用户信息组件", num: "0" },
-        { activeNames: "1", title: "信息显示组件", num: "1" },
-        { activeNames: "1", title: "数组输入组件", num: "2" }
-      ],
-      options: {
-        delayOnTouchOnly: true, //开启触摸延时
-        direction: "vertical", //拖动方向
-        delay: 500, //延时时长
-        touchStartThreshold: 3, //防止某些手机过于敏感(3~5 效果最好)
-        chosenClass: "chosen" //选中之后拖拽项添加的class名(用于选中时候添加样式)
-      },
+      allTemplate: ["<user class=&quot;publicAll user&quot;></user>"],
+      cross: require("../../../assets/super/template/cross.png"),
 
-      allTemplate: ["<user class=&quot;publicAll user&quot;></user>"]
+      siteUserShow: false ,// 显示user设置底部弹框
     };
   },
   mounted() {
     // this.addTemplate();
+    this.start();
   },
+
   methods: {
+
+    // 接收子组件底部弹框数据
+    listenUser(newVal,isTrueList) {
+      this.siteUserShow = newVal;
+      console.log(isTrueList)
+    },
+
+    // 点击user内容弹出底部弹框
+    showUser() {
+      this.siteUserShow = true;
+    },
+    // 初始化内容
+    start() {
+      this.showPopup = false;
+      this.siteUserShow= false;
+    },
     // 返回按钮
     returnPage() {
       window.history.go(-1); // windos的返回上一页
@@ -144,8 +180,14 @@ export default {
     // 子组件sidebar返回事件，返回是哪个组件
     listenToMakeForm(newVal1) {
       this.showPopup = false;
-      // console.log(newVal1);
-      this.addTemplate();
+      this.templateList.push(newVal1); // 添加一个组件
+
+      // this.addTemplate();
+    },
+
+    // 删除第i个组件
+    spliceList(i) {
+      this.templateList.splice(i, 1);
     },
 
     // 右划事件
@@ -156,10 +198,12 @@ export default {
       // t.style.cssText = "display:inline";
     },
 
+    // 添加内容方法
     addTemplate() {
       var ff = document.getElementById("addTemplate");
 
-      ff.innerHTML = "<user ></user>";
+      // ff.innerHTML = "<user ></user>";
+
       // ff.innerHTML="<p>I love <em>JavaScript</em>!</p>";
     }
   }

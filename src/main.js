@@ -17,10 +17,12 @@ import './css/index.css'
 
 import { SwipeCell } from 'vant';
 import { Field } from "vant";
+import touch from 'vue-directive-touch';  // 滑动
 import { Overlay } from 'vant';  // 遮罩层
+import { ActionSheet } from 'vant';  // 上拉菜单
 
+Vue.use(ActionSheet);
 Vue.use(Overlay);
-import touch from 'vue-directive-touch';
 Vue.use(touch);
 Vue.use(Field);
 Vue.use(SwipeCell);

@@ -125,7 +125,7 @@ export default {
       ],
       picInfo: require("../../../assets/super/user.png"),
 
-      nameIsTrue: [true, true, true, true , true, false, true]
+      nameIsTrue: [true, true, true, true , true, true, true]
     };
   },
   mounted() {},
