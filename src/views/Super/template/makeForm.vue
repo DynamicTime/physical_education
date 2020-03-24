@@ -19,7 +19,7 @@
         <div v-if="templateList[i] =='0'">
           <img @click="spliceList(i)" :src="cross" alt />
           <div @click="showUser()">
-            <user class="publicAll user"></user>
+            <user :isTrueList="isTrueUserList" class="publicAll user"></user>
           </div>
         </div>
         <div v-if="templateList[i] =='1'">
@@ -35,7 +35,11 @@
         </div>
       </div>
     </div>
-    <siteUser :siteUserShowP="siteUserShow" @listenUserToMakeForm="listenUser" ></siteUser>
+    <siteUser
+      :siteUserShowP="siteUserShow"
+      :isTrueListP="isTrueUserList"
+      @listenUserToMakeForm="listenUser"
+    ></siteUser>
     <!-- 弹出层 -->
     <van-popup v-model="showPopup" position="left" :style="{ height: '100%' }">
       <!-- 左侧弹出框 -->
@@ -141,7 +145,9 @@ export default {
       allTemplate: ["<user class=&quot;publicAll user&quot;></user>"],
       cross: require("../../../assets/super/template/cross.png"),
 
-      siteUserShow: false ,// 显示user设置底部弹框
+      siteUserShow: false, // 显示user设置底部弹框
+
+      isTrueUserList: [] // 存储usersite修改后的数据数组
     };
   },
   mounted() {
@@ -150,11 +156,15 @@ export default {
   },
 
   methods: {
-
     // 接收子组件底部弹框数据
-    listenUser(newVal,isTrueList) {
-      this.siteUserShow = newVal;
-      console.log(isTrueList)
+    listenUser(newVal, isTrueList) {
+      this.siteUserShow = newVal; // 关闭底部弹框
+      this.isTrueUserList = [];
+      for (let index = 0; index < isTrueList.length; index++) {
+        this.isTrueUserList.push(isTrueList[index].isTrue);
+      }
+      // this.isTrueUserList = isTrueList; // 底部弹框传递过来的值
+      // console.log("我是makeForm页IsTrueUserList===>" + this.isTrueUserList);
     },
 
     // 点击user内容弹出底部弹框
@@ -164,7 +174,8 @@ export default {
     // 初始化内容
     start() {
       this.showPopup = false;
-      this.siteUserShow= false;
+      this.siteUserShow = false;
+      this.isTrueUserList = [false, true, true, true, true, true, true]; // 应从库里获取
     },
     // 返回按钮
     returnPage() {

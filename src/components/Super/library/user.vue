@@ -39,7 +39,6 @@
   </div>
 </template>
 <style scoped>
-
 .rightDiv {
   height: 190px;
   border: 1px solid white;
@@ -49,14 +48,12 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  
 }
 .rightTable {
   text-align: center;
   border: 1px solid white;
   color: black;
   font-size: 15px;
-  
 }
 .body {
   width: 298px;
@@ -112,6 +109,13 @@
 </style>
 <script>
 export default {
+  props: {
+    isTrueList: {
+      type: Array,
+      default: () => [true, true, true, true, true, true, true]
+    }
+    // isTrueList:Array
+  },
   data() {
     return {
       infoName: [
@@ -125,10 +129,36 @@ export default {
       ],
       picInfo: require("../../../assets/super/user.png"),
 
-      nameIsTrue: [true, true, true, true , true, true, true]
+      nameIsTrue: [true, true, true, true, true, true, true]
     };
   },
-  mounted() {},
-  methods: {}
+  watch: {
+    isTrueList(newVal) {
+      this.nameIsTrue=[]
+      for (let i = 0; i < newVal.length; i++) {
+        this.nameIsTrue[i] = newVal[i];
+      }
+      console.log("我是监听isTRUEList中的newVal==>>" + newVal);
+
+      console.log("我是监听isTRUEList中的nameISTrue===>" + this.nameIsTrue);
+      // console.log("我是isTrueList监听中isTrueList===>"+newVal);
+
+      // console.log("我是isTrueList监听中isTrueList===>"+this.isTrueList);
+
+      // console.log("我是isTrueList监听中infoName===>"+this.infoName.isTrue);
+    }
+  },
+  mounted() {
+    // this.start();
+  },
+  methods: {
+    start() {
+      for (let i = 0; i < this.isTrueList.length; i++) {
+        this.nameIsTrue[i] = this.isTrueList[i];
+      }
+
+      console.log("我是start中的infoName" + this.isTrueList);
+    }
+  }
 };
 </script>

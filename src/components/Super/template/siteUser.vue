@@ -26,7 +26,7 @@
 </template>
 <style scoped>
 .body {
-  height: 300px;
+  height: 350px;
 }
 .isTrue {
   margin-top: 2px;
@@ -39,7 +39,7 @@
 }
 
 /* van组件所有字体大小 */
->>> .van-cel {
+>>> .van-cel {                                                                                                                                                                                                                                                                                                       
   font-size: 20px;
 }
 </style>
@@ -47,7 +47,8 @@
 <script>
 export default {
   props: {
-    siteUserShowP: ""
+    siteUserShowP: "",
+    isTrueListP:[]
   },
   data() {
     return {
@@ -59,10 +60,11 @@ export default {
         { name: "性别是否显示", isTrue: true },
         { name: "学号是否显示", isTrue: true },
         { name: "学院是否显示", isTrue: true },
+        { name: "专业是否显示", isTrue: true },
         { name: "班级是否显示", isTrue: true },
         { name: "年级是否显示", isTrue: true },
-
-      ]
+      ],
+      isTrue:[]
     };
   },
   watch: {
@@ -72,10 +74,15 @@ export default {
       if (newVal == true) {
         this.siteUserShow = newVal;
       }
+
+      //  this.nameIsTrue=[]
+      // for (let i = 0; i < newVal.length; i++) {
+      //   this.nameIsTrue[i] = newVal[i];
+      // }
     },
 
     // 退出后返回给父页面数据
-    siteUserShow(newVal) {
+    siteUserShow(newVal) { 
       this.$emit("listenUserToMakeForm", newVal,this.isTrueList);
 
     //   console.log(this.isTrueList)
