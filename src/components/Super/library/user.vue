@@ -30,7 +30,7 @@
           align="center"
         >
           <tr v-for="(item ,i) in infoName" v-if="nameIsTrue[i]">
-            <td width="300">{{infoName[i].name}}</td>
+            <td >{{infoName[i].name}}</td>
             <td>{{infoName[i].data}}</td>
           </tr>
         </table>
@@ -39,6 +39,8 @@
   </div>
 </template>
 <style scoped>
+
+/* =====================右边数据=================== */
 .rightDiv {
   height: 190px;
   border: 1px solid white;
@@ -57,11 +59,12 @@
 }
 .body {
   width: 298px;
-  max-width: auto;
   height: 190px;
   border: 1px solid;
-  /* position: relative; */
 }
+
+
+/* ==================左边图片===================== */
 .picture img {
   width: 100px;
   height: 120px;
@@ -88,6 +91,9 @@
   text-align: left;
   color: black;
 }
+
+
+/* ================废弃的右边不服================== */
 
 /* 每行数据边框 */
 .body .info {
@@ -122,7 +128,7 @@ export default {
         { name: "名字", data: "张三" },
         { name: "性别", data: "男" },
         { name: "学号", data: "122231231231" },
-        { name: "学院", data: "建工学院" },
+        { name: "学院", data: "物理与电子信息学院" },
         { name: "专业", data: "电子信息" },
         { name: "班级", data: "二班" },
         { name: "年级", data: "一年级" }
@@ -130,6 +136,8 @@ export default {
       picInfo: require("../../../assets/super/user.png"),
 
       nameIsTrue: [true, true, true, true, true, true, true]
+      // nameIsTrue: []
+
     };
   },
   watch: {

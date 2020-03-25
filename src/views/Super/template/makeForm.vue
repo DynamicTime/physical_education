@@ -175,7 +175,9 @@ export default {
     start() {
       this.showPopup = false;
       this.siteUserShow = false;
-      this.isTrueUserList = [false, true, true, true, true, true, true]; // 应从库里获取
+
+      // 判断此页面是否有此组件，如果有此组件则使用，如果是新添加的则不写，还有注意判断是此页面中的哪个
+      this.isTrueUserList = [false, false, true, true, true, true, true]; // user7个显示数据应从库里获取
     },
     // 返回按钮
     returnPage() {
@@ -192,8 +194,6 @@ export default {
     listenToMakeForm(newVal1) {
       this.showPopup = false;
       this.templateList.push(newVal1); // 添加一个组件
-
-      // this.addTemplate();
     },
 
     // 删除第i个组件

@@ -39,7 +39,7 @@
 }
 
 /* van组件所有字体大小 */
->>> .van-cel {                                                                                                                                                                                                                                                                                                       
+>>> .van-cel {
   font-size: 20px;
 }
 </style>
@@ -48,7 +48,7 @@
 export default {
   props: {
     siteUserShowP: "",
-    isTrueListP:[]
+    isTrueListP: { type: Array, default: () => {} }
   },
   data() {
     return {
@@ -62,30 +62,36 @@ export default {
         { name: "学院是否显示", isTrue: true },
         { name: "专业是否显示", isTrue: true },
         { name: "班级是否显示", isTrue: true },
-        { name: "年级是否显示", isTrue: true },
+        { name: "年级是否显示", isTrue: true }
       ],
-      isTrue:[]
+      isTrue: []
     };
   },
   watch: {
-
-      // 监听父页面传来数据
+    // 监听父页面传来数据
     siteUserShowP(newVal) {
       if (newVal == true) {
         this.siteUserShow = newVal;
       }
-
       //  this.nameIsTrue=[]
       // for (let i = 0; i < newVal.length; i++) {
       //   this.nameIsTrue[i] = newVal[i];
       // }
     },
 
-    // 退出后返回给父页面数据
-    siteUserShow(newVal) { 
-      this.$emit("listenUserToMakeForm", newVal,this.isTrueList);
+    isTrueListP(newVal) {
+      console.log("我是isTrueListP===>" + newVal)
+      for (let i = 0; i < newVal.length; i++) {
+        this.isTrueList[i].isTrue =  newVal[i]
+        
+      }
+    },
 
-    //   console.log(this.isTrueList)
+    // 退出后返回给父页面数据
+    siteUserShow(newVal) {
+      this.$emit("listenUserToMakeForm", newVal, this.isTrueList);
+
+      //   console.log(this.isTrueList)
     }
   },
   mounted() {},
