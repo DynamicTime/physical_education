@@ -2,16 +2,17 @@
 *@描述:test
 *@版本:V1.0
 *@作者:白爱民
-*@Date:2019年12月11日20:16:26
+*@Date:2020年3月25日16:49:10
 *@最后修改人:herry
-*@LastEditTime:2019年12月11日20:16:31
+*@LastEditTime:2020年3月25日16:49:10
 *@说明：-->
+
 <template>
   <div>
     <van-action-sheet v-model="siteUserShow" title="图片信息">
       <!-- <div class="content"></div> -->
       <div class="body">
-        <van-field v-model="text" label="组件名称" placeholder="请输入名称" />
+        <van-field v-model="userName" label="组件名称" placeholder="请输入名称" />
 
         <div class="isTrue" v-for="(item,i) in isTrueList">
           <van-cell center :title="isTrueList[i].name">
@@ -43,18 +44,18 @@
   font-size: 20px;
 }
 </style>
-
 <script>
 export default {
   props: {
-    siteUserShowP: "",
-    isTrueListP: { type: Array, default: () => {} }
+    siteUserShowP: "", // 接收父页面makeForm传递过来: 显示底部弹框
+    isTrueListP: { type: Array, default: () => {} } // 接收父页面makeForm传递过来: 显示底部数据
   },
   data() {
     return {
-      siteUserShow: false, //  初始化底部弹框默认为false
-      text: "",
-      checked: "",
+      siteUserShow: false, //底部弹框是否显示
+      userName: "", // 输入名字
+
+      // 底部弹框显示内容和是否显示
       isTrueList: [
         { name: "姓名是否显示", isTrue: true },
         { name: "性别是否显示", isTrue: true },
@@ -63,35 +64,27 @@ export default {
         { name: "专业是否显示", isTrue: true },
         { name: "班级是否显示", isTrue: true },
         { name: "年级是否显示", isTrue: true }
-      ],
-      isTrue: []
+      ]
     };
   },
   watch: {
-    // 监听父页面传来数据
+    // 监听父页面传来数据：是否显示siteUser底部弹框
     siteUserShowP(newVal) {
       if (newVal == true) {
         this.siteUserShow = newVal;
       }
-      //  this.nameIsTrue=[]
-      // for (let i = 0; i < newVal.length; i++) {
-      //   this.nameIsTrue[i] = newVal[i];
-      // }
     },
 
+    // 监听父页面传来数据：底部弹框数组内容
     isTrueListP(newVal) {
-      console.log("我是isTrueListP===>" + newVal)
       for (let i = 0; i < newVal.length; i++) {
-        this.isTrueList[i].isTrue =  newVal[i]
-        
+        this.isTrueList[i].isTrue = newVal[i];
       }
     },
 
-    // 退出后返回给父页面数据
+    // isTrue改变值后：返回给父页面数据（打开和关闭都传值）
     siteUserShow(newVal) {
       this.$emit("listenUserToMakeForm", newVal, this.isTrueList);
-
-      //   console.log(this.isTrueList)
     }
   },
   mounted() {},

@@ -1,19 +1,22 @@
 <!--
-*@描述:test
+*@描述:拖拽主页面
 *@版本:V1.0
 *@作者:白爱民
-*@Date:2019年12月11日20:16:26
+*@Date:2020年3月25日16:49:10
 *@最后修改人:herry
-*@LastEditTime:2019年12月11日20:16:31
+*@LastEditTime:2020年3月25日16:49:15
 *@说明：-->
+
 <template>
   <div>
+    <!-- 抬头 -->
     <div class="title commonColor">
       <div class="buttonLeft" @click="returnPage()">返回</div>
       <div class="buttonRight" @click="nextStep()">下一步</div>
       <div class="titleName">编辑模板</div>
     </div>
 
+    <!-- 页面框内容 -->
     <div id="addTemplate" class="allTemplate" v-touch:right="eventFun">
       <div v-for="(item ,i) in templateList ">
         <div v-if="templateList[i] =='0'">
@@ -35,14 +38,16 @@
         </div>
       </div>
     </div>
+
+    <!-- 修改user页面底部弹框 -->
     <siteUser
       :siteUserShowP="siteUserShow"
       :isTrueListP="isTrueUserList"
       @listenUserToMakeForm="listenUser"
     ></siteUser>
-    <!-- 弹出层 -->
+
+    <!-- 左滑弹出框 -->
     <van-popup v-model="showPopup" position="left" :style="{ height: '100%' }">
-      <!-- 左侧弹出框 -->
       <div id="sidebar">
         <sidebar @listenToMakeForm="listenToMakeForm"></sidebar>
       </div>
@@ -124,10 +129,7 @@ import sidebar from "../../../components/Super/template/sidebar";
 import user from "../../../components/Super/library/user";
 import infoShow from "../../../components/Super/library/infoShow";
 import numberIndex from "../../../components/Super/library/numberIndex";
-
 import siteUser from "../../../components/Super/template/siteUser";
-// import siteUser from "../../../components/Super/template/siteUser";
-// import siteUser from "../../../components/Super/template/siteUser";
 
 export default {
   components: {
@@ -140,37 +142,34 @@ export default {
   data() {
     return {
       showPopup: false, // 遮罩层弹出
-      templateList: [0],
-
-      allTemplate: ["<user class=&quot;publicAll user&quot;></user>"],
-      cross: require("../../../assets/super/template/cross.png"),
-
-      siteUserShow: false, // 显示user设置底部弹框
-
-      isTrueUserList: [] // 存储usersite修改后的数据数组
+      templateList: [], // 存放当前页面显示的几个页面数据，012分别为三个组件
+      cross: require("../../../assets/super/template/cross.png"), // 取消叉号
+      siteUserShow: false, // 显示userSite设置底部弹框
+      isTrueUserList: [] // userSite需要显示的数组内容
     };
   },
   mounted() {
-    // this.addTemplate();
-    this.start();
+    this.start(); // 进入页面加载内容
   },
-
   methods: {
-    // 接收子组件底部弹框数据
-    listenUser(newVal, isTrueList) {
-      this.siteUserShow = newVal; // 关闭底部弹框
-      this.isTrueUserList = [];
-      for (let index = 0; index < isTrueList.length; index++) {
-        this.isTrueUserList.push(isTrueList[index].isTrue);
+    // ====================底部设置弹框========================
+
+    // 接收子组件 底部弹框数据
+    listenUser(siteuserShow, istrueUserList) {
+      this.siteUserShow = siteuserShow; // 关闭底部弹框
+      this.isTrueUserList = []; // 清空userSite需要显示的数组内容
+      for (let index = 0; index < istrueUserList.length; index++) {
+        this.isTrueUserList.push(istrueUserList[index].isTrue);
       }
-      // this.isTrueUserList = isTrueList; // 底部弹框传递过来的值
-      // console.log("我是makeForm页IsTrueUserList===>" + this.isTrueUserList);
     },
 
     // 点击user内容弹出底部弹框
     showUser() {
-      this.siteUserShow = true;
+      this.siteUserShow = true; // 显示userSite底部弹框
     },
+
+    // =================页面加载和抬头按钮部分=====================
+
     // 初始化内容
     start() {
       this.showPopup = false;
@@ -190,6 +189,8 @@ export default {
       this.$router.push({ name: "makeForm" });
     },
 
+    //  ==================右划添加组件部分=======================
+
     // 子组件sidebar返回事件，返回是哪个组件
     listenToMakeForm(newVal1) {
       this.showPopup = false;
@@ -207,15 +208,6 @@ export default {
 
       // var t = document.getElementById("sidebar");
       // t.style.cssText = "display:inline";
-    },
-
-    // 添加内容方法
-    addTemplate() {
-      var ff = document.getElementById("addTemplate");
-
-      // ff.innerHTML = "<user ></user>";
-
-      // ff.innerHTML="<p>I love <em>JavaScript</em>!</p>";
     }
   }
 };
