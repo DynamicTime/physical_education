@@ -5,7 +5,9 @@
 *@Date:2020年3月17日11:11:28
 *@最后修改人:白爱民
 *@LastEditTime:2020年3月17日11:11:34
-*@说明：-->
+*@说明： 让每个类型组件抽成一个，然后在这个页面可以跳转顺序，停用使用在各自的里面使用、
+
+-->
 <template>
   <div>
     <div class="title commonColor">
@@ -15,13 +17,27 @@
 
     <vuedraggable v-model="list" :options="options">
       <div class="bodyDiv" v-for="(item ,index) in list ">
+        <!-- 下拉框所有内容 -->
         <van-collapse class="publicClassification" v-model="list[index].activeNames" accordion>
           <van-collapse-item v-if="list" :title="list[index].title" name="1">
-            <user v-if="list[index].num == '0'"></user>
+            <!-- 左滑显示添加删除等 -->
+            <van-swipe-cell>
 
-            <infoShow v-if="list[index].num == '1'"></infoShow>
+              <!-- 不同下拉框里面不同内容 -->
+              <user v-if="list[index].num == '0'"></user>
+              <infoShow v-if="list[index].num == '1'"></infoShow>
+              <numberIndex v-if="list[index].num =='2'"></numberIndex>
+              <user v-if="list[index].num == '3'"></user>
+              <user v-if="list[index].num == '3'"></user>
 
-            <numberIndex v-if="list[index].num =='2'"></numberIndex>
+              
+
+              <!-- 左滑显示的内容 -->
+              <template #right>
+                <van-button @click="useComponent(index)" v-if="list[index].num !='3'" square text="使用" type="primary" class="delete-button" />
+                <van-button v-if="list[index].num =='3'" @click="disableComponent()" square text="停用" type="danger" class="delete-button" />
+              </template>
+            </van-swipe-cell>
           </van-collapse-item>
         </van-collapse>
       </div>
@@ -29,6 +45,15 @@
   </div>
 </template>
 <style scoped>
+.goods-card {
+  margin: 0;
+  background-color: @white;
+}
+
+.delete-button {
+  height: 100%;
+}
+
 .commonColor {
   background: #fecd2a;
 }
@@ -79,23 +104,25 @@ import user from "../../../components/Super/library/user";
 import infoShow from "../../../components/Super/library/infoShow";
 import numberIndex from "../../../components/Super/library/numberIndex";
 
-import vuedraggable from "vuedraggable";  //拖动
+import vuedraggable from "vuedraggable"; //拖动
+
+import swipeCell from "../../../components/Super/template/swipeCell"; // 左右滑动
 
 export default {
   components: {
     user,
     infoShow,
     numberIndex,
-    vuedraggable
+    vuedraggable,
+    swipeCell
   },
   data() {
     return {
-      
-
       list: [
         { activeNames: "1", title: "用户信息组件", num: "0" },
         { activeNames: "1", title: "信息显示组件", num: "1" },
-        { activeNames: "1", title: "数组输入组件", num: "2" }
+        { activeNames: "1", title: "数组输入组件", num: "2" },
+        { activeNames: "1", title: "无效组件", num: "3" }
       ],
       options: {
         delayOnTouchOnly: true, //开启触摸延时
@@ -104,7 +131,6 @@ export default {
         touchStartThreshold: 3, //防止某些手机过于敏感(3~5 效果最好)
         chosenClass: "chosen" //选中之后拖拽项添加的class名(用于选中时候添加样式)
       }
-
     };
   },
   updated() {
@@ -112,11 +138,16 @@ export default {
   },
   mounted() {},
   methods: {
-
     intoModel() {
-      this.$router.push({name:"management"});
-    }
+      this.$router.push({ name: "management" });
+    },
 
+    useComponent(index){
+      console.log(index)
+    },
+    disableComponent(){
+
+    }
   }
 };
 </script>

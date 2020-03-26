@@ -11,9 +11,9 @@
     <van-swipe-cell :before-close="beforeClose">
       <van-cell :border="false" :title="title" :value="value" />
       <template slot="right">
-        <van-button @click="intoCreateName()" square type="primary" text="编辑" />
+        <van-button @click="intoCreateName()" square type="primary" :text="text1" />
 
-        <van-button @click="deleteName()" square type="danger" text="删除" />
+        <van-button @click="deleteName()" square type="danger" :text="text2" />
       </template>
     </van-swipe-cell>
   </div>
@@ -25,7 +25,9 @@ export default {
   data() {
     return {
       title: "500米",
-      value: ""
+      value: "",
+      text1:"编辑",
+      text2:"删除"
     };
   },
   mounted() {},
@@ -48,7 +50,6 @@ export default {
           break;
       }
     },
-
     intoCreateName(){
       this.$router.push({ name: "createName" });
     },

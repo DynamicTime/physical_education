@@ -23,12 +23,10 @@
         <div class="bodyDiv" v-for="(item ,index) in list ">
           <van-collapse class="publicClassification" v-model="list[index].activeNames" accordion>
             <van-collapse-item v-if="list" class="collapseOne" :title="list[index].title" name="1">
-              <!-- <user v-if="list[index].num == '0'"></user>
-
-              <infoShow v-if="list[index].num == '1'"></infoShow>
-
-              <numberIndex v-if="list[index].num =='2'"></numberIndex>-->
+              
               <swipeCell></swipeCell>
+
+              <!-- 加号 -->
               <div>
                 <img @click="plusNum(index)" class="addBut" :src="plus" alt />
               </div>
@@ -115,21 +113,18 @@ export default {
   },
   data() {
     return {
-      //   show: false,
-      //   value: ""
-      iocName: require("../../../assets/super/setting.png"),
-      // list: [
-      //   { activeNames: "1", title: "用户信息组件", num: "0" },
-      //   { activeNames: "1", title: "信息显示组件", num: "1" },
-      //   { activeNames: "1", title: "数组输入组件", num: "2" }
-      // ],
-      plus: require("../../../assets/super/plus.png"),
+
+      iocName: require("../../../assets/super/setting.png"), // 抬头右侧设置图片
+
+      plus: require("../../../assets/super/plus.png"), // 底部加号图片
 
       list: [
         { activeNames: "1", title: "公共项目" },
         { activeNames: "1", title: "男生项目" },
         { activeNames: "1", title: "女生项目" }
       ],
+
+      // 长按后拖动
       options: {
         delayOnTouchOnly: true, //开启触摸延时
         direction: "vertical", //拖动方向
@@ -141,22 +136,19 @@ export default {
   },
   mounted() {},
   methods: {
-    // newitems() {
-    //   var searchArr = [];
-    //   if (this.searchMessage === "") {
-    //   }
-    // }
 
+
+    // 抬头左侧按钮跳转到组件管理
     intoModel() {
       this.$router.push({ name: "library" });
     },
+    // 抬头右侧按钮跳转到模板设置
     intoSetting() {
       this.$router.push({ name: "setting" });
     },
 
+    // 加号：跳转添加页面输入信息
     plusNum(index) {
-      // console.log(index);
-
       this.$router.push({ name: "createName" });
     }
   }
