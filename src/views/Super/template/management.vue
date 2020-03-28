@@ -99,9 +99,9 @@
 </style>
 <script>
 import vuedraggable from "vuedraggable";
-import user from "../../../components/Super/library/user";
-import infoShow from "../../../components/Super/library/infoShow";
-import numberIndex from "../../../components/Super/library/numberIndex";
+import user from "../../../components/Super/library/userInfo/user";
+import infoShow from "../../../components/Super/library/theMessageStates/infoShow";
+import numberIndex from "../../../components/Super/library/enterInformation/numberIndex";
 import swipeCell from "../../../components/Super/template/swipeCell";
 export default {
   components: {

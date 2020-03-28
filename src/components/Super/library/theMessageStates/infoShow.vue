@@ -65,7 +65,6 @@ export default {
       value: "",
       infoTitle: ["某某得分", "某某信息", "评分"],
       infoShow:["122","122","333"]
-
     };
   },
   mounted() {},

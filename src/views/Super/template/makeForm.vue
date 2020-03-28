@@ -129,9 +129,9 @@ img {
 </style>
 <script>
 import sidebar from "../../../components/Super/template/sidebar";
-import user from "../../../components/Super/library/user";
-import infoShow from "../../../components/Super/library/infoShow";
-import numberIndex from "../../../components/Super/library/numberIndex";
+import user from "../../../components/Super/library/userInfo/user";
+import infoShow from "../../../components/Super/library/theMessageStates/infoShow";
+import numberIndex from "../../../components/Super/library/enterInformation/numberIndex";
 import siteUser from "../../../components/Super/template/siteUser";
 
 export default {

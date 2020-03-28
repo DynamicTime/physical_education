@@ -15,48 +15,27 @@
       <div class="titleName">组件管理</div>
     </div>
 
-    <vuedraggable v-model="list" :options="options">
-      <div class="bodyDiv" v-for="(item ,index) in list ">
-        <!-- 下拉框所有内容 -->
-        <van-collapse class="publicClassification" v-model="list[index].activeNames" accordion>
-          <van-collapse-item v-if="list" :title="list[index].title" name="1">
-            <!-- 左滑显示添加删除等 -->
-            <van-swipe-cell>
-
-              <!-- 不同下拉框里面不同内容 -->
-              <user v-if="list[index].num == '0'"></user>
-              <infoShow v-if="list[index].num == '1'"></infoShow>
-              <numberIndex v-if="list[index].num =='2'"></numberIndex>
-              <user v-if="list[index].num == '3'"></user>
-              <user v-if="list[index].num == '3'"></user>
-
-              
-
-              <!-- 左滑显示的内容 -->
-              <template #right>
-                <van-button @click="useComponent(index)" v-if="list[index].num !='3'" square text="使用" type="primary" class="delete-button" />
-                <van-button v-if="list[index].num =='3'" @click="disableComponent()" square text="停用" type="danger" class="delete-button" />
-              </template>
-            </van-swipe-cell>
-          </van-collapse-item> 
-        </van-collapse>
+    <!-- 可以长按拖动内容 -->
+    <vuedraggable v-model="classList" :options="options">
+      <div class="bodyDiv" v-for="(item ,index) in classList">
+        <userInfo
+          :titleP="classList[index].title"
+          v-if="classList[index].isTrue && classList[index].position == 0"
+        ></userInfo>
+        <theMessageStates
+          :titleP="classList[index].title"
+          v-if="classList[index].isTrue && classList[index].position == 1 "
+        ></theMessageStates>
+        <enterInformation
+          :titleP="classList[index].title"
+          v-if="classList[index].isTrue && classList[index].position == 2"
+        ></enterInformation>
       </div>
     </vuedraggable>
   </div>
 </template>
 <style scoped>
-.goods-card {
-  margin: 0;
-  background-color: @white;
-}
-
-.delete-button {
-  height: 100%;
-}
-
-.commonColor {
-  background: #fecd2a;
-}
+/* ===============抬头部分================= */
 
 .title {
   overflow: hidden;
@@ -79,50 +58,48 @@
   width: 100px;
 }
 
+.commonColor {
+  background: #fecd2a;
+}
+/* ===============抬头部分================= */
+
 .bodyDiv {
   margin-top: 50px;
-  /* width: 80%; */
-  /* margin: 10px auto 10px; */
   margin-left: 15px;
   margin-right: 15px;
 }
 
+/* 每个模板名字居左 */
 >>> .van-cell {
-  /* height: 100px; */
   text-align: left;
   font-size: 20px;
-}
-
-.publicClassification {
-  margin-top: 20px;
 }
 </style>
 
 
 <script>
-import user from "../../../components/Super/library/user";
-import infoShow from "../../../components/Super/library/infoShow";
-import numberIndex from "../../../components/Super/library/numberIndex";
-
+import userInfo from "../../../components/Super/library/userInfo/userInfo";
+import theMessageStates from "../../../components/Super/library/theMessageStates/theMessageStates";
+import enterInformation from "../../../components/Super/library/enterInformation/enterInformation";
 import vuedraggable from "vuedraggable"; //拖动
 
 import swipeCell from "../../../components/Super/template/swipeCell"; // 左右滑动
 
 export default {
   components: {
-    user,
-    infoShow,
-    numberIndex,
+    userInfo,
+    theMessageStates,
+    enterInformation,
     vuedraggable,
     swipeCell
   },
   data() {
     return {
-      list: [
-        { activeNames: "1", title: "用户信息组件", num: "0" },
-        { activeNames: "1", title: "信息显示组件", num: "1" },
-        { activeNames: "1", title: "数组输入组件", num: "2" },
-        { activeNames: "1", title: "无效组件", num: "3" }
+      classList: [
+        { title: "用户信息组件", isTrue: true, position: 0 },
+        { title: "信息显示组件", isTrue: true, position: 1 },
+        { title: "数组输入组件", isTrue: true, position: 2 },
+        { title: "无效组件", isTrue: true, position: 3 }
       ],
       options: {
         delayOnTouchOnly: true, //开启触摸延时
@@ -133,24 +110,15 @@ export default {
       }
     };
   },
-  updated() {
-    // console.log(this.list);
+  updated() {},
+  mounted() {
+    // this.start();
   },
-  mounted() {},
   methods: {
+    start() {},
     // 抬头左侧点击模板管理跳转
     intoManagement() {
       this.$router.push({ name: "management" });
-    },
-
-    // 组件右划使用按钮操作
-    useComponent(index){
-      console.log(index)
-    },
-
-    // 组件右划停用按钮操作
-    disableComponent(){
-
     }
   }
 };

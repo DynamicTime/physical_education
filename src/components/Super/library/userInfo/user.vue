@@ -16,7 +16,6 @@
       <div class="rightDiv">
         <table
           class="rightTable"
-          width="200"
           border="1"
           cellspacing="0"
           cellpadding="0"
@@ -124,7 +123,7 @@ export default {
         { name: "班级", data: "二班" },
         { name: "年级", data: "一年级" }
       ],
-      picInfo: require("../../../assets/super/user.png"), // user左侧默认人图片
+      picInfo: require("../../../../assets/super/user.png"), // user左侧默认人图片
       nameIsTrue: [true, true, true, true, true, true, true] // 页面是否显示某个属性数组
     };
   },
