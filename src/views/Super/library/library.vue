@@ -11,7 +11,7 @@
 <template>
   <div>
     <div class="title commonColor">
-      <div class="button" @click="intoModel()">模板管理</div>
+      <div class="button" @click="intoManagement()">模板管理</div>
       <div class="titleName">组件管理</div>
     </div>
 
@@ -38,7 +38,7 @@
                 <van-button v-if="list[index].num =='3'" @click="disableComponent()" square text="停用" type="danger" class="delete-button" />
               </template>
             </van-swipe-cell>
-          </van-collapse-item>
+          </van-collapse-item> 
         </van-collapse>
       </div>
     </vuedraggable>
@@ -138,13 +138,17 @@ export default {
   },
   mounted() {},
   methods: {
-    intoModel() {
+    // 抬头左侧点击模板管理跳转
+    intoManagement() {
       this.$router.push({ name: "management" });
     },
 
+    // 组件右划使用按钮操作
     useComponent(index){
       console.log(index)
     },
+
+    // 组件右划停用按钮操作
     disableComponent(){
 
     }
