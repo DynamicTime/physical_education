@@ -12,36 +12,33 @@
     <van-collapse class="publicClassification" v-model="activeNames" accordion>
       <!-- 折叠面板 -->
       <van-collapse-item :title="title" name="1">
-        <!-- 左滑显示添加删除等 -->
-        <van-swipe-cell>
-          <!-- 不同下拉框里面不同内容 -->
-          <user></user>
-
-          <!-- 左滑显示的内容 -->
-          <template #right>
-            <van-button
-              @click="useComponent()"
-              square
-              text="使用"
-              type="primary"
-              class="delete-button"
-            />
-            <van-button
-              @click="disableComponent()"
-              square
-              text="停用"
-              type="danger"
-              class="delete-button"
-            />
-          </template>
-        </van-swipe-cell>
+        <div class="componentBody" v-for="(item,index) in componentList">
+          <!-- 左滑显示添加删除等 -->
+          <van-swipe-cell>
+            <!-- 不同下拉框里面不同内容 -->
+            <user v-if="componentList[index].isTrue && componentList[index].position ==0"></user>
+            <!-- 左滑显示的内容 -->
+            <template #right>
+              <van-button
+                @click="disableComponent()"
+                square
+                text="停用"
+                type="danger"
+                class="delete-button"
+              />
+            </template>
+          </van-swipe-cell>
+        </div>
       </van-collapse-item>
     </van-collapse>
   </div>
 </template>
 <style scoped>
+.componentBody {
+  margin-bottom: 20px;
+}
 
-
+/* 左滑 */
 .goods-card {
   margin: 0;
   background-color: @white;
@@ -50,7 +47,6 @@
 .delete-button {
   height: 100%;
 }
-
 </style>
 <script>
 import user from "./user";
@@ -62,28 +58,26 @@ export default {
     swipeCell
   },
   props: {
-    titleP: {default :"用户信息组件"}
+    titleP: { default: "用户信息组件" }
   },
   data() {
     return {
       activeNames: "1",
-      title: ""
+      title: "",
+      componentList: [{ isTrue: true, position: 0 }]
     };
   },
   watch: {
+    // 数据变化时：监听父页面library数据:此页面组件类名
     titleP(newVal) {
       this.title = newVal;
     }
   },
   mounted() {
-    this.title=this.titleP
+    // 初始化监听父页面library数据:此页面组件类名
+    this.title = this.titleP;
   },
   methods: {
-    // 组件右划使用按钮操作
-    useComponent() {
-      console.log(0);
-    },
-
     // 组件右划停用按钮操作
     disableComponent() {}
   }

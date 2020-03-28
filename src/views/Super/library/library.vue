@@ -30,6 +30,11 @@
           :titleP="classList[index].title"
           v-if="classList[index].isTrue && classList[index].position == 2"
         ></enterInformation>
+
+        <invalidComponents
+          :titleP="classList[index].title"
+          v-if="classList[index].isTrue && classList[index].position == 'Invalid'"
+        ></invalidComponents>
       </div>
     </vuedraggable>
   </div>
@@ -82,7 +87,7 @@ import userInfo from "../../../components/Super/library/userInfo/userInfo";
 import theMessageStates from "../../../components/Super/library/theMessageStates/theMessageStates";
 import enterInformation from "../../../components/Super/library/enterInformation/enterInformation";
 import vuedraggable from "vuedraggable"; //拖动
-
+import invalidComponents from "../../../components/Super/library/invalidComponents"; // 无效组件
 import swipeCell from "../../../components/Super/template/swipeCell"; // 左右滑动
 
 export default {
@@ -91,7 +96,8 @@ export default {
     theMessageStates,
     enterInformation,
     vuedraggable,
-    swipeCell
+    swipeCell,
+    invalidComponents
   },
   data() {
     return {
@@ -99,7 +105,7 @@ export default {
         { title: "用户信息组件", isTrue: true, position: 0 },
         { title: "信息显示组件", isTrue: true, position: 1 },
         { title: "数组输入组件", isTrue: true, position: 2 },
-        { title: "无效组件", isTrue: true, position: 3 }
+        { title: "无效组件", isTrue: true, position:  'Invalid'}
       ],
       options: {
         delayOnTouchOnly: true, //开启触摸延时
