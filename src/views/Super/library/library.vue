@@ -175,11 +175,13 @@ export default {
       this.componentInvalidTouserInfoList[0].isTrue = isTrue;
       this.componentuserInfoToInvalidList[0].isTrue = false;
     },
+    // 监听invalid传递过来信息：传递给theMessageStates,组件已经使用
+
     listenToInfoShow(isTrue) {
       this.componentInvalidToTheMessageStatesList[0].isTrue = isTrue;
       this.componentTheMessageStatesToInvalidList[0].isTrue = false;
     },
-
+    // 监听invalid传递过来信息：传递给enterInformation,组件已经使用
     listenToNumberIndex(isTrue) {
       this.componentInvalidToEnterInfomationList[0].isTrue = isTrue;
       this.componentEnterInfomationToInvalidList[0].isTrue = false;

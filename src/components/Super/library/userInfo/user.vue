@@ -14,13 +14,7 @@
         <img :src="picInfo" alt />
       </div>
       <div class="rightDiv">
-        <table
-          class="rightTable"
-          border="1"
-          cellspacing="0"
-          cellpadding="0"
-          align="center"
-        >
+        <table class="rightTable" border="1" cellspacing="0" cellpadding="0" align="center">
           <tr v-for="(item ,i) in infoName" v-if="nameIsTrue[i]">
             <td>{{infoName[i].name}}</td>
             <td>{{infoName[i].data}}</td>
@@ -136,7 +130,16 @@ export default {
       }
     }
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    // this.start();  //不需要执行即可，因为makeform接收后端值后即可改变，监听也会改变
+  },
+  methods: {
+    start() {
+      this.nameIsTrue = []; // 清空当前是否显示数组数据
+      for (let i = 0; i < this.isTrueList.length; i++) {
+        this.nameIsTrue[i] = this.isTrueList[i];
+      }
+    }
+  }
 };
 </script>

@@ -146,7 +146,7 @@ export default {
     return {
       showPopup: false, // 遮罩层弹出
       templateList: [], // 存放当前页面显示的几个页面数据，012分别为三个组件
-      cross: require("../../../assets/super/template/cross.png"), // 取消叉号
+      cross: require("../../../assets/super/template/cross.png"), // 取消（叉号）
       siteUserShow: false, // 显示userSite设置底部弹框
       isTrueUserList: [] // userSite需要显示的数组内容
     };
@@ -175,11 +175,11 @@ export default {
 
     // 初始化内容
     start() {
-      this.showPopup = false;
-      this.siteUserShow = false;
+      this.showPopup = false; // 左滑不显示
+      this.siteUserShow = false; // userSite底部弹框不显示
 
-      // 判断此页面是否有此组件，如果有此组件则使用，如果是新添加的则不写，还有注意判断是此页面中的哪个
-      this.isTrueUserList = [false, false, true, true, true, true, true]; // user7个显示数据应从库里获取
+      this.templateList = []; // 初始化页面有谁：012:表示三个从上排列下去
+      this.isTrueUserList = [true, true, true, true, true, true, true]; //初始化加载：控制userSite和user中user7个显示数据应从库里获取
     },
     // 返回按钮
     returnPage() {
