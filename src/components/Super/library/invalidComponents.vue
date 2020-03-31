@@ -16,7 +16,6 @@
           <!-- 左滑显示添加删除等 -->
           <van-swipe-cell>
             <!-- 不同下拉框里面不同内容 -->
-
             <user v-if="componentList[index].isTrue && componentList[index].position ==0"></user>
             <infoShow v-if="componentList[index].isTrue && componentList[index].position ==1"></infoShow>
             <numberIndex v-if="componentList[index].isTrue && componentList[index].position ==2"></numberIndex>
@@ -54,11 +53,10 @@
 </style>
 <script>
 import user from "../library/userInfo/user"; // 用户信息
-
 import infoShow from "../library/theMessageStates/infoShow"; // 信息显示
 import numberIndex from "../library/enterInformation/numberIndex"; // 数字输入框
-import swipeCell from "../template/swipeCell"; // 左右滑动
 
+import swipeCell from "../template/swipeCell"; // 左右滑动
 export default {
   components: {
     user,
@@ -67,12 +65,18 @@ export default {
     swipeCell
   },
   props: {
-    titleP: { default: "用户信息组件" }
+    // 接收父组件（libarry)传递过来是否显示的值
+    userInfoP: { default: false },
+    theMessageStatesListP: { default: false },
+    enterInfomationListP: { default: false },
+    titleP: { default: "无效组件" } // library传递过来抬头信息
   },
   data() {
     return {
-      activeNames: "1",
-      title: "",
+      activeNames: "1", // 下拉框默认1，不需要修改
+      title: "", // 模板名称
+
+      // 每个下拉框内容，默认是不显示的
       componentList: [
         { isTrue: false, position: 0 },
         { isTrue: false, position: 1 },
@@ -84,16 +88,46 @@ export default {
     // 数据变化时：监听父页面library数据:此页面组件类名
     titleP(newVal) {
       this.title = newVal;
+    },
+    // 数据变化时：监听父页面library数据:userInfo里面单个组件是否显示
+    userInfoP(newVal) {
+      this.componentList[0].isTrue = newVal;
+    },
+    // 数据变化时：监听父页面library数据:themessagStates里面单个组件是否显示
+    theMessageStatesListP(newVal) {
+      this.componentList[1].isTrue = newVal;
+    },
+    // 数据变化时：监听父页面library数据:enterInfomation里面单个组件是否显示
+    enterInfomationListP(newVal) {
+      this.componentList[2].isTrue = newVal;
     }
   },
   mounted() {
     // 初始化监听父页面library数据:此页面组件类名
-    this.title = this.titleP;
+    this.componentList[0].isTrue = this.userInfoP; // userInfo中user为false
+    this.componentList[1].isTrue = this.theMessageStatesListP; // theMessageStates中infoShow为falses
+    this.componentList[2].isTrue = this.enterInfomationListP; // enterInfomation中numberIndex为false
+    this.title = this.titleP; // 组件类名字
   },
   methods: {
     // 组件右划使用按钮操作
     useComponent(i) {
-      console.log(i);
+      // 当前页面不显示
+      this.componentList[i].isTrue = false;
+      // 根据第几个传递给相应的组件类库
+      switch (i) {
+        case 0:
+          this.$emit("listen_Invalid_ToLibrary_userInfo", true);
+          break;
+        case 1:
+          this.$emit("listen_Invalid_ToLibrary_infoShow", true);
+          break;
+        case 2:
+          this.$emit("listen_Invalid_ToLibrary_numberIndex", true);
+          break;
+        default:
+          break;
+      }
     }
   }
 };

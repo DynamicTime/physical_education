@@ -19,19 +19,31 @@
     <vuedraggable v-model="classList" :options="options">
       <div class="bodyDiv" v-for="(item ,index) in classList">
         <userInfo
+          :userInfoListP="componentInvalidTouserInfoList[0].isTrue"
+          @listenUserInfoToLibrary="listenUserInfo"
           :titleP="classList[index].title"
           v-if="classList[index].isTrue && classList[index].position == 0"
         ></userInfo>
         <theMessageStates
+          :theMessageStatesListP="componentInvalidToTheMessageStatesList[0].isTrue"
+          @listenTheMessageStatesToLibrary="listenTheMessageStates"
           :titleP="classList[index].title"
           v-if="classList[index].isTrue && classList[index].position == 1 "
         ></theMessageStates>
         <enterInformation
+          :enterInfomationListP="componentInvalidToEnterInfomationList[0].isTrue"
+          @listenEnterInfomationToLibrary="listenEnterInfomation"
           :titleP="classList[index].title"
           v-if="classList[index].isTrue && classList[index].position == 2"
         ></enterInformation>
 
         <invalidComponents
+          @listen_Invalid_ToLibrary_userInfo="listenToUserInfo"
+          @listen_Invalid_ToLibrary_infoShow="listenToInfoShow"
+          @listen_Invalid_ToLibrary_numberIndex="listenToNumberIndex"
+          :userInfoP="componentuserInfoToInvalidList[0].isTrue"
+          :theMessageStatesListP="componentTheMessageStatesToInvalidList[0].isTrue"
+          :enterInfomationListP="componentEnterInfomationToInvalidList[0].isTrue"
           :titleP="classList[index].title"
           v-if="classList[index].isTrue && classList[index].position == 'Invalid'"
         ></invalidComponents>
@@ -83,9 +95,9 @@
 
 
 <script>
-import userInfo from "../../../components/Super/library/userInfo/userInfo";
-import theMessageStates from "../../../components/Super/library/theMessageStates/theMessageStates";
-import enterInformation from "../../../components/Super/library/enterInformation/enterInformation";
+import userInfo from "../../../components/Super/library/userInfo/userInfo"; // 用户信息组件类
+import theMessageStates from "../../../components/Super/library/theMessageStates/theMessageStates"; // 信息显示组件类
+import enterInformation from "../../../components/Super/library/enterInformation/enterInformation"; // 输入信息组件类
 import vuedraggable from "vuedraggable"; //拖动
 import invalidComponents from "../../../components/Super/library/invalidComponents"; // 无效组件
 import swipeCell from "../../../components/Super/template/swipeCell"; // 左右滑动
@@ -101,12 +113,25 @@ export default {
   },
   data() {
     return {
+      // 由各个组件类传递过来，并传送给invalidComponents
+      componentuserInfoToInvalidList: [{ isTrue: false, position: 0 }],
+      componentTheMessageStatesToInvalidList: [{ isTrue: false, position: 0 }],
+      componentEnterInfomationToInvalidList: [{ isTrue: false, position: 0 }],
+
+      // 由invalidComponents传递过来，并传送给各自组件类
+      componentInvalidTouserInfoList: [{ isTrue: true, position: 0 }],
+      componentInvalidToTheMessageStatesList: [{ isTrue: true, position: 0 }],
+      componentInvalidToEnterInfomationList: [{ isTrue: true, position: 0 }],
+
+      //渲染当前library页面数据
       classList: [
         { title: "用户信息组件", isTrue: true, position: 0 },
         { title: "信息显示组件", isTrue: true, position: 1 },
         { title: "数组输入组件", isTrue: true, position: 2 },
-        { title: "无效组件", isTrue: true, position:  'Invalid'}
+        { title: "无效组件", isTrue: true, position: "Invalid" }
       ],
+
+      // 拖动长按拖动长按
       options: {
         delayOnTouchOnly: true, //开启触摸延时
         direction: "vertical", //拖动方向
@@ -125,6 +150,39 @@ export default {
     // 抬头左侧点击模板管理跳转
     intoManagement() {
       this.$router.push({ name: "management" });
+    },
+
+    // 监听userInfo传递过来信息：传递给invalid,组件已经停用
+    listenUserInfo(i) {
+      this.componentuserInfoToInvalidList[i].isTrue = true; // 无效组件库为true
+      this.componentInvalidTouserInfoList[i].isTrue = false; // userInfo 为false
+    },
+
+    // 监听TheMessageStates传递过来信息：传递给invalid,组件已经停用
+    listenTheMessageStates(i) {
+      this.componentTheMessageStatesToInvalidList[i].isTrue = true;
+      this.componentInvalidToTheMessageStatesList[i].isTrue = false;
+    },
+
+    // 监听EnterInfomation传递过来信息：传递给invalid,组件已经停用
+    listenEnterInfomation(index) {
+      this.componentEnterInfomationToInvalidList[index].isTrue = true;
+      this.componentInvalidToEnterInfomationList[index].isTrue = false;
+    },
+
+    // 监听invalid传递过来信息：传递给userinfo,组件已经使用
+    listenToUserInfo(isTrue) {
+      this.componentInvalidTouserInfoList[0].isTrue = isTrue;
+      this.componentuserInfoToInvalidList[0].isTrue = false;
+    },
+    listenToInfoShow(isTrue) {
+      this.componentInvalidToTheMessageStatesList[0].isTrue = isTrue;
+      this.componentTheMessageStatesToInvalidList[0].isTrue = false;
+    },
+
+    listenToNumberIndex(isTrue) {
+      this.componentInvalidToEnterInfomationList[0].isTrue = isTrue;
+      this.componentEnterInfomationToInvalidList[0].isTrue = false;
     }
   }
 };
