@@ -5,7 +5,8 @@
 *@Date:2019年12月11日20:16:26
 *@最后修改人:白爱民
 *@LastEditTime:2019年12月11日20:16:31
-*@说明：-->
+*@说明： 需要接受makeform页面传递过来的组件顺序和个数数组
+-->
 <template>
   <div>
     <div class="leftBody" @click="infosh()">
@@ -44,6 +45,9 @@
 
 <script>
 export default {
+  props: {
+    infoNumP: {}
+  },
   data() {
     return {
       infoShow: require("../../../assets/super/library/infoShow.jpg"), // 信息展示图片

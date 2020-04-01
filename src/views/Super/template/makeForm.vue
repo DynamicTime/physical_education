@@ -30,8 +30,9 @@
         </div>
         <div v-if="templateList[i] =='1'">
           <img @click="spliceList(i)" :src="cross" alt />
-
-          <infoShow class="publicAll infoShow"></infoShow>
+          <div @click="showInfoShow()">
+            <infoShow class="publicAll infoShow"></infoShow>
+          </div>
         </div>
 
         <div v-if="templateList[i] =='2'">
@@ -49,9 +50,13 @@
       @listenUserToMakeForm="listenUser"
     ></siteUser>
 
+    <!-- 修改infoShow页面底部弹框 -->
+    <siteInfoShow></siteInfoShow>
+
     <!-- 左滑弹出框 -->
     <van-popup v-model="showPopup" position="left" :style="{ height: '100%' }">
       <div id="sidebar">
+        <!-- 侧边栏 -->
         <sidebar @listenToMakeForm="listenToMakeForm"></sidebar>
       </div>
     </van-popup>
@@ -133,6 +138,7 @@ import user from "../../../components/Super/library/userInfo/user";
 import infoShow from "../../../components/Super/library/theMessageStates/infoShow";
 import numberIndex from "../../../components/Super/library/enterInformation/numberIndex";
 import siteUser from "../../../components/Super/template/siteUser";
+import siteInfoShow from "../../../components/Super/template/siteInfoShow";
 
 export default {
   components: {
@@ -140,15 +146,22 @@ export default {
     user,
     infoShow,
     numberIndex,
-    siteUser
+    siteUser,
+    siteInfoShow
   },
   data() {
     return {
       showPopup: false, // 遮罩层弹出
       templateList: [], // 存放当前页面显示的几个页面数据，012分别为三个组件
       cross: require("../../../assets/super/template/cross.png"), // 取消（叉号）
+
+      // user:
       siteUserShow: false, // 显示userSite设置底部弹框
-      isTrueUserList: [] // userSite需要显示的数组内容
+      isTrueUserList: [], // userSite需要显示的数组内容
+
+      // infoShow:
+      siteInfoShowShow: false, // 显示userSite设置底部弹框
+      isTrueInfoShowList: [] // userSite需要显示的数组内容
     };
   },
   mounted() {
@@ -157,7 +170,9 @@ export default {
   methods: {
     // ====================底部设置弹框========================
 
-    // 接收子组件 底部弹框数据
+    // ----------------user-------------------
+
+    // 接收user子组件 底部弹框数据
     listenUser(siteuserShow, istrueUserList) {
       this.siteUserShow = siteuserShow; // 关闭底部弹框
       this.isTrueUserList = []; // 清空userSite需要显示的数组内容
@@ -165,10 +180,14 @@ export default {
         this.isTrueUserList.push(istrueUserList[index].isTrue);
       }
     },
-
     // 点击user内容弹出底部弹框
     showUser() {
       this.siteUserShow = true; // 显示userSite底部弹框
+    },
+    // ----------------infoShow-------------------
+
+    showInfoShow() {
+      this.siteInfoShowShow = true; // 显示infoShow底部弹框
     },
 
     // =================页面加载和抬头按钮部分=====================
